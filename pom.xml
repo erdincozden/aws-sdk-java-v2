@@ -115,6 +115,7 @@
         <maven-bundle-plugin.version>4.0.0</maven-bundle-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
+        <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
         <checkstyle.version>7.8.2</checkstyle.version>
         <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
@@ -522,6 +523,7 @@
                         <failsOnError>true</failsOnError>
                         <logViolationsToConsole>true</logViolationsToConsole>
                         <failOnViolation>true</failOnViolation>
+                        <excludes>**/module-info.java</excludes>
                     </configuration>
                 </plugin>
                 <plugin>
