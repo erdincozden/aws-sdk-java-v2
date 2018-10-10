@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package software.amazon.awssdk.awscore.protocol.xml;
+package software.amazon.awssdk.core.internal.protocol.restxml.unmarshall;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +37,7 @@ import software.amazon.awssdk.annotations.SdkProtectedApi;
  * from the parser, reading element text, handling attribute XML events, etc.
  */
 @SdkProtectedApi
-public final class StaxUnmarshallerContext {
+public final class StaxUnmarshallerContext implements XmlPayloadUnmarshallerContext {
 
     public final Stack<String> stack = new Stack<>();
     private final XMLEventReader eventReader;

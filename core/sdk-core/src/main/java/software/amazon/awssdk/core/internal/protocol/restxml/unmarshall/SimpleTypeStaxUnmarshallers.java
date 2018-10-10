@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package software.amazon.awssdk.awscore.protocol.xml;
+package software.amazon.awssdk.core.internal.protocol.restxml.unmarshall;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

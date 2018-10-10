@@ -28,6 +28,7 @@ import software.amazon.awssdk.codegen.emitters.FreemarkerGeneratorTask;
 import software.amazon.awssdk.codegen.emitters.GeneratorTask;
 import software.amazon.awssdk.codegen.emitters.GeneratorTaskParams;
 import software.amazon.awssdk.codegen.model.intermediate.Metadata;
+import software.amazon.awssdk.codegen.model.intermediate.Protocol;
 import software.amazon.awssdk.codegen.model.intermediate.ShapeModel;
 import software.amazon.awssdk.codegen.model.intermediate.ShapeType;
 import software.amazon.awssdk.codegen.poet.eventstream.EventStreamUtils;
@@ -61,6 +62,7 @@ public class MarshallerGeneratorTasks extends BaseGeneratorTasks {
             info("Skip generating marshaller class for " + shapeModel.getShapeName());
             return false;
         }
+
         ShapeType shapeType = shapeModel.getShapeType();
         return (ShapeType.Request == shapeType || (ShapeType.Model == shapeType && metadata.isJsonProtocol()))
                // The event stream shape is a container for event subtypes and isn't something that needs to ever be marshalled
@@ -68,8 +70,7 @@ public class MarshallerGeneratorTasks extends BaseGeneratorTasks {
     }
 
     private Stream<GeneratorTask> createTask(String javaShapeName, ShapeModel shapeModel) throws Exception {
-        if (metadata.isJsonProtocol()) {
-
+        if (metadata.isJsonProtocol() || isRestXml()) {
             return ShapeType.Request == shapeModel.getShapeType() ||
                    (ShapeType.Model == shapeModel.getShapeType() && shapeModel.isEvent()
                     && EventStreamUtils.isRequestEvent(model, shapeModel))
@@ -82,6 +83,10 @@ public class MarshallerGeneratorTasks extends BaseGeneratorTasks {
                                  freemarker.getModelMarshallerTemplate(),
                                  javaShapeName + "Marshaller",
                                  transformClassDir));
+    }
+
+    private boolean isRestXml() {
+        return Protocol.REST_XML == metadata.getProtocol();
     }
 
     private GeneratorTask createMarshallerTask(String javaShapeName, Template template,

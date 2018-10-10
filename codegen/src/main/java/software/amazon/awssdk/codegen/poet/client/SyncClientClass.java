@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.lang.model.element.Modifier;
 import software.amazon.awssdk.annotations.SdkInternalApi;
+import software.amazon.awssdk.awscore.protocol.xml.AwsXmlProtocolFactory;
 import software.amazon.awssdk.codegen.docs.SimpleMethodOverload;
 import software.amazon.awssdk.codegen.emitters.GeneratorTaskParams;
 import software.amazon.awssdk.codegen.model.intermediate.IntermediateModel;
@@ -84,6 +85,10 @@ public class SyncClientClass implements ClassSpec {
 
         classBuilder.addMethod(closeMethod());
 
+        if (model.getMetadata().getProtocol() == Protocol.REST_XML) {
+            classBuilder.addField(AwsXmlProtocolFactory.class, "protocolFactory", PRIVATE, FINAL);
+        }
+
         if (model.hasPaginators()) {
             classBuilder.addMethod(applyPaginatorUserAgentMethod(poetExtensions, model));
         }
@@ -121,6 +126,10 @@ public class SyncClientClass implements ClassSpec {
                                  model.getMetadata().isCborProtocol());
         } else {
             builder.addStatement("this.$N = init()", protocolSpec.protocolFactory(model).name);
+        }
+
+        if (model.getMetadata().getProtocol() == Protocol.REST_XML) {
+            builder.addStatement("this.protocolFactory = AwsXmlProtocolFactory.builder().build()");
         }
         return builder.build();
     }
@@ -186,7 +195,7 @@ public class SyncClientClass implements ClassSpec {
         switch (protocol) {
             case QUERY:
             case REST_XML:
-                return new QueryXmlProtocolSpec(poetExtensions);
+                return new QueryXmlProtocolSpec(poetExtensions, protocol);
             case EC2:
                 return new Ec2ProtocolSpec(poetExtensions);
             case AWS_JSON:

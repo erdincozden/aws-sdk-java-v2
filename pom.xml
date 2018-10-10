@@ -549,7 +549,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <failOnWarning>true</failOnWarning>
+                    <failOnWarning>false</failOnWarning>
                     <ignoreNonCompile>true</ignoreNonCompile>
                     <ignoredUsedUndeclaredDependencies>
                         <!--Ignore used undeclared test dependencies -->

@@ -72,7 +72,7 @@ public final class AllTypesRequest extends JsonProtocolTestsRequest implements
                     .memberFieldInfo(
                         SdkField.<String> builder(MarshallingType.STRING)
                             .traits(LocationTrait.builder().location(MarshallLocation.PAYLOAD)
-                                                 .locationName("member").build()).build()).build()).build();
+                                                 .locationName("member").build()).build()).flattened(false).build()).build();
 
     private static final SdkField<List<String>> LIST_OF_ENUMS_FIELD = SdkField
         .<List<String>> builder(MarshallingType.LIST)
@@ -85,7 +85,7 @@ public final class AllTypesRequest extends JsonProtocolTestsRequest implements
                     .memberFieldInfo(
                         SdkField.<String> builder(MarshallingType.STRING)
                             .traits(LocationTrait.builder().location(MarshallLocation.PAYLOAD)
-                                                 .locationName("member").build()).build()).build()).build();
+                                                 .locationName("member").build()).build()).flattened(false).build()).build();
 
     private static final SdkField<List<Map<String, String>>> LIST_OF_MAPS_FIELD = SdkField
         .<List<Map<String, String>>> builder(MarshallingType.LIST)
@@ -107,7 +107,7 @@ public final class AllTypesRequest extends JsonProtocolTestsRequest implements
                                                     .traits(LocationTrait.builder()
                                                                          .location(MarshallLocation.PAYLOAD)
                                                                          .locationName("value").build()).build())
-                                            .build()).build()).build()).build();
+                                            .build()).build()).flattened(false).build()).build();
 
     private static final SdkField<List<SimpleStruct>> LIST_OF_STRUCTS_FIELD = SdkField
         .<List<SimpleStruct>> builder(MarshallingType.LIST)
@@ -121,7 +121,7 @@ public final class AllTypesRequest extends JsonProtocolTestsRequest implements
                         SdkField.<SimpleStruct> builder(MarshallingType.SDK_POJO)
                             .constructor(SimpleStruct::builder)
                             .traits(LocationTrait.builder().location(MarshallLocation.PAYLOAD)
-                                                 .locationName("member").build()).build()).build()).build();
+                                                 .locationName("member").build()).build()).flattened(false).build()).build();
 
     private static final SdkField<Map<String, List<Integer>>> MAP_OF_STRING_TO_INTEGER_LIST_FIELD = SdkField
         .<Map<String, List<Integer>>> builder(MarshallingType.MAP)
@@ -143,7 +143,7 @@ public final class AllTypesRequest extends JsonProtocolTestsRequest implements
                                                     .traits(LocationTrait.builder()
                                                                          .location(MarshallLocation.PAYLOAD)
                                                                          .locationName("member").build()).build())
-                                            .build()).build()).build()).build();
+                                            .flattened(false).build()).build()).build()).build();
 
     private static final SdkField<Map<String, String>> MAP_OF_STRING_TO_STRING_FIELD = SdkField
         .<Map<String, String>> builder(MarshallingType.MAP)
@@ -271,7 +271,7 @@ public final class AllTypesRequest extends JsonProtocolTestsRequest implements
                     .memberFieldInfo(
                         SdkField.<SdkBytes> builder(MarshallingType.SDK_BYTES)
                             .traits(LocationTrait.builder().location(MarshallLocation.PAYLOAD)
-                                                 .locationName("member").build()).build()).build()).build();
+                                                 .locationName("member").build()).build()).flattened(false).build()).build();
 
     private static final SdkField<RecursiveStructType> RECURSIVE_STRUCT_FIELD = SdkField
         .<RecursiveStructType> builder(MarshallingType.SDK_POJO).getter(getter(AllTypesRequest::recursiveStruct))
@@ -1996,4 +1996,3 @@ public final class AllTypesRequest extends JsonProtocolTestsRequest implements
         }
     }
 }
-

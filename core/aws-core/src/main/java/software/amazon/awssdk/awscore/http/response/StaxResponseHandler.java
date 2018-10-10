@@ -28,11 +28,11 @@ import software.amazon.awssdk.awscore.AwsResponse;
 import software.amazon.awssdk.awscore.AwsResponseMetadata;
 import software.amazon.awssdk.awscore.internal.DefaultAwsResponseMetadata;
 import software.amazon.awssdk.awscore.internal.protocol.xml.VoidStaxUnmarshaller;
-import software.amazon.awssdk.awscore.protocol.xml.StaxOperationMetadata;
-import software.amazon.awssdk.awscore.protocol.xml.StaxUnmarshallerContext;
 import software.amazon.awssdk.core.SdkStandardLogger;
 import software.amazon.awssdk.core.http.HttpResponseHandler;
 import software.amazon.awssdk.core.interceptor.ExecutionAttributes;
+import software.amazon.awssdk.core.internal.protocol.restxml.unmarshall.StaxOperationMetadata;
+import software.amazon.awssdk.core.internal.protocol.restxml.unmarshall.StaxUnmarshallerContext;
 import software.amazon.awssdk.core.runtime.transform.Unmarshaller;
 import software.amazon.awssdk.http.AbortableInputStream;
 import software.amazon.awssdk.http.SdkHttpFullResponse;
@@ -82,7 +82,6 @@ public final class StaxResponseHandler<T extends AwsResponse> implements HttpRes
             this.responseUnmarshaller = new VoidStaxUnmarshaller<>();
         }
     }
-
 
     /**
      * @see HttpResponseHandler#handle(SdkHttpFullResponse, ExecutionAttributes)

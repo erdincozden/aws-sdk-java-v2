@@ -46,7 +46,7 @@ public final class NestedContainersResponse extends JsonProtocolTestsResponse im
                                                 .traits(LocationTrait.builder()
                                                                      .location(MarshallLocation.PAYLOAD)
                                                                      .locationName("member").build()).build())
-                                        .build()).build()).build()).build();
+                                        .flattened(false).build()).build()).flattened(false).build()).build();
 
     private static final SdkField<List<List<List<String>>>> LIST_OF_LIST_OF_LIST_OF_STRINGS_FIELD = SdkField
         .<List<List<List<String>>>> builder(MarshallingType.LIST)
@@ -81,8 +81,9 @@ public final class NestedContainersResponse extends JsonProtocolTestsResponse im
                                                                                 .locationName(
                                                                                     "member")
                                                                                 .build())
-                                                                    .build()).build())
-                                                .build()).build()).build()).build()).build();
+                                                                    .build())
+                                                            .flattened(false).build()).build())
+                                        .flattened(false).build()).build()).flattened(false).build()).build();
 
     private static final SdkField<Map<String, List<List<String>>>> MAP_OF_STRING_TO_LIST_OF_LIST_OF_STRINGS_FIELD = SdkField
         .<Map<String, List<List<String>>>> builder(MarshallingType.MAP)
@@ -118,8 +119,9 @@ public final class NestedContainersResponse extends JsonProtocolTestsResponse im
                                                                                     .locationName(
                                                                                         "member")
                                                                                     .build())
-                                                                        .build()).build())
-                                                    .build()).build()).build()).build()).build();
+                                                                        .build())
+                                                                .flattened(false).build()).build())
+                                            .flattened(false).build()).build()).build()).build();
 
     private static final List<SdkField<?>> SDK_FIELDS = Collections.unmodifiableList(Arrays.asList(LIST_OF_LIST_OF_STRINGS_FIELD,
                                                                                                    LIST_OF_LIST_OF_LIST_OF_STRINGS_FIELD, MAP_OF_STRING_TO_LIST_OF_LIST_OF_STRINGS_FIELD));
@@ -382,4 +384,3 @@ public final class NestedContainersResponse extends JsonProtocolTestsResponse im
         }
     }
 }
-

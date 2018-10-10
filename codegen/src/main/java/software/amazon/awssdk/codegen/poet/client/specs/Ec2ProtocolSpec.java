@@ -18,12 +18,13 @@ package software.amazon.awssdk.codegen.poet.client.specs;
 import com.squareup.javapoet.MethodSpec;
 import java.util.ArrayList;
 import java.util.List;
+import software.amazon.awssdk.codegen.model.intermediate.Protocol;
 import software.amazon.awssdk.codegen.poet.PoetExtensions;
 
 public class Ec2ProtocolSpec extends QueryXmlProtocolSpec {
 
     public Ec2ProtocolSpec(PoetExtensions poetExtensions) {
-        super(poetExtensions);
+        super(poetExtensions, Protocol.EC2);
     }
 
     @Override

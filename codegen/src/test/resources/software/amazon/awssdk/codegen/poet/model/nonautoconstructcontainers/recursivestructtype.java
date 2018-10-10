@@ -50,7 +50,7 @@ public final class RecursiveStructType implements SdkPojo, ToCopyableBuilder<Rec
                         SdkField.<RecursiveStructType> builder(MarshallingType.SDK_POJO)
                             .constructor(RecursiveStructType::builder)
                             .traits(LocationTrait.builder().location(MarshallLocation.PAYLOAD)
-                                                 .locationName("member").build()).build()).build()).build();
+                                                 .locationName("member").build()).build()).flattened(false).build()).build();
 
     private static final SdkField<Map<String, RecursiveStructType>> RECURSIVE_MAP_FIELD = SdkField
         .<Map<String, RecursiveStructType>> builder(MarshallingType.MAP)
@@ -382,4 +382,3 @@ public final class RecursiveStructType implements SdkPojo, ToCopyableBuilder<Rec
         }
     }
 }
-

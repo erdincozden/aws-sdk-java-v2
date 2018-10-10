@@ -13,13 +13,12 @@
  * permissions and limitations under the License.
  */
 
-package software.amazon.awssdk.awscore.protocol.xml;
+package software.amazon.awssdk.core.internal.protocol.restxml.unmarshall;
 
 import software.amazon.awssdk.annotations.SdkProtectedApi;
-import software.amazon.awssdk.awscore.http.response.StaxResponseHandler;
 
 /**
- * Contains information needed to create a {@link StaxResponseHandler}.
+ * Contains information needed to create a
  */
 @SdkProtectedApi
 public final class StaxOperationMetadata {

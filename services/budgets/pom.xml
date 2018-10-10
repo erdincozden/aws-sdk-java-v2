@@ -29,4 +29,14 @@
         AWS Budgets Service
     </description>
     <url>https://aws.amazon.com/sdkforjava</url>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+    </dependencies>
+
 </project>

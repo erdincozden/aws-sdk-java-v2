@@ -239,9 +239,11 @@ class ShapeModelSpec {
                         .add("$T.builder()\n"
                              + ".memberLocationName($S)\n"
                              + ".memberFieldInfo($L)\n"
+                             + ".flattened($L)\n"
                              + ".build()", ClassName.get(ListTrait.class),
                              m.getListModel().getMemberLocationName(),
-                             containerSdkFieldInitializer(m.getListModel().getListMemberModel()))
+                             containerSdkFieldInitializer(m.getListModel().getListMemberModel()),
+                             m.getHttp().isFlattened())
                         .build();
     }
 

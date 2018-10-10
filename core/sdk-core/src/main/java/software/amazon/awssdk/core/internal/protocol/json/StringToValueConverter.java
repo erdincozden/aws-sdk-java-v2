@@ -15,6 +15,7 @@
 
 package software.amazon.awssdk.core.internal.protocol.json;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import software.amazon.awssdk.annotations.SdkInternalApi;
 import software.amazon.awssdk.core.SdkBytes;
@@ -80,6 +81,8 @@ public final class StringToValueConverter {
     public static final SimpleStringToValue<Float> TO_FLOAT = Float::parseFloat;
 
     public static final SimpleStringToValue<Double> TO_DOUBLE = Double::parseDouble;
+
+    public static final SimpleStringToValue<BigDecimal> TO_BIG_DECIMAL = val -> new BigDecimal(val);
 
     public static final SimpleStringToValue<Boolean> TO_BOOLEAN = Boolean::parseBoolean;
 

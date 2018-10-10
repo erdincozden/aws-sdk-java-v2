@@ -17,6 +17,8 @@ package software.amazon.awssdk.codegen.poet.client;
 
 import static com.squareup.javapoet.TypeSpec.Builder;
 import static java.util.Collections.singletonList;
+import static javax.lang.model.element.Modifier.FINAL;
+import static javax.lang.model.element.Modifier.PRIVATE;
 import static software.amazon.awssdk.codegen.poet.client.ClientClassUtils.applyPaginatorUserAgentMethod;
 import static software.amazon.awssdk.codegen.poet.client.ClientClassUtils.applySignerOverrideMethod;
 import static software.amazon.awssdk.codegen.poet.client.ClientClassUtils.getCustomResponseHandler;
@@ -42,10 +44,12 @@ import software.amazon.awssdk.awscore.client.handler.AwsAsyncClientHandler;
 import software.amazon.awssdk.awscore.eventstream.EventStreamTaggedUnionJsonMarshaller;
 import software.amazon.awssdk.awscore.internal.client.handler.AwsClientHandlerUtils;
 import software.amazon.awssdk.awscore.protocol.json.AwsJsonProtocolFactory;
+import software.amazon.awssdk.awscore.protocol.xml.AwsXmlProtocolFactory;
 import software.amazon.awssdk.codegen.emitters.GeneratorTaskParams;
 import software.amazon.awssdk.codegen.model.intermediate.IntermediateModel;
 import software.amazon.awssdk.codegen.model.intermediate.MemberModel;
 import software.amazon.awssdk.codegen.model.intermediate.OperationModel;
+import software.amazon.awssdk.codegen.model.intermediate.Protocol;
 import software.amazon.awssdk.codegen.model.intermediate.ShapeModel;
 import software.amazon.awssdk.codegen.poet.PoetExtensions;
 import software.amazon.awssdk.codegen.poet.PoetUtils;
@@ -101,6 +105,10 @@ public final class AsyncClientClass extends AsyncClientInterface {
             classBuilder.addField(AwsJsonProtocolFactory.class, "jsonProtocolFactory", Modifier.PRIVATE, Modifier.FINAL);
         }
 
+        if (model.getMetadata().getProtocol() == Protocol.REST_XML) {
+            classBuilder.addField(AwsXmlProtocolFactory.class, "protocolFactory", PRIVATE, FINAL);
+        }
+
         if (model.hasPaginators()) {
             classBuilder.addMethod(applyPaginatorUserAgentMethod(poetExtensions, model));
         }
@@ -128,6 +136,9 @@ public final class AsyncClientClass extends AsyncClientInterface {
         }
         if (model.getMetadata().isCborProtocol()) {
             builder.addStatement("this.jsonProtocolFactory = init(false)");
+        }
+        if (model.getMetadata().getProtocol() == Protocol.REST_XML) {
+            builder.addStatement("this.protocolFactory = AwsXmlProtocolFactory.builder().build()");
         }
         if (hasOperationWithEventStreamOutput()) {
             classBuilder.addField(FieldSpec.builder(ClassName.get(Executor.class), "executor",

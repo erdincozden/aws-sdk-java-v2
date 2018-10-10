@@ -15,6 +15,7 @@
 
 package software.amazon.awssdk.core.internal.protocol.json;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.HashMap;
@@ -86,6 +87,8 @@ public final class ValueToStringConverter {
     public static final SimpleValueToString<Float> FROM_FLOAT = StringConversion::fromFloat;
 
     public static final SimpleValueToString<Double> FROM_DOUBLE = StringConversion::fromDouble;
+
+    public static final SimpleValueToString<BigDecimal> FROM_BIG_DECIMAL = BigDecimal::toString;
 
     /**
      * Marshalls boolean as a literal 'true' or 'false' string.

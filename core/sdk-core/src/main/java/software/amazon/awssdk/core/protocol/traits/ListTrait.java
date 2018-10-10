@@ -26,10 +26,12 @@ public final class ListTrait implements Trait {
 
     private final String memberLocationName;
     private final SdkField memberFieldInfo;
+    private final boolean flattened;
 
     private ListTrait(Builder builder) {
         this.memberLocationName = builder.memberLocationName;
         this.memberFieldInfo = builder.memberFieldInfo;
+        this.flattened = builder.flattened;
     }
 
     /**
@@ -49,6 +51,10 @@ public final class ListTrait implements Trait {
         return memberFieldInfo;
     }
 
+    public boolean flattened() {
+        return flattened;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -57,6 +63,7 @@ public final class ListTrait implements Trait {
 
         private String memberLocationName;
         private SdkField memberFieldInfo;
+        private boolean flattened;
 
         private Builder() {
         }
@@ -68,6 +75,11 @@ public final class ListTrait implements Trait {
 
         public Builder memberFieldInfo(SdkField memberFieldInfo) {
             this.memberFieldInfo = memberFieldInfo;
+            return this;
+        }
+
+        public Builder flattened(boolean flattened) {
+            this.flattened = flattened;
             return this;
         }
 

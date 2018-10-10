@@ -13,21 +13,21 @@
  * permissions and limitations under the License.
  */
 
-package software.amazon.awssdk.awscore.internal.protocol.xml;
+package software.amazon.awssdk.core.internal.protocol.restxml;
 
 import software.amazon.awssdk.annotations.SdkInternalApi;
-import software.amazon.awssdk.core.internal.protocol.restxml.unmarshall.StaxUnmarshallerContext;
-import software.amazon.awssdk.core.runtime.transform.Unmarshaller;
+import software.amazon.awssdk.core.protocol.SdkField;
 
 /**
- * Simple StAX unmarshaller that iterates through the XML events but always
- * returns null.
+ * Interface to marshall data for rest-xml protocol
+ *
+ * @param <T> Type to marshall.
  */
 @SdkInternalApi
-public class VoidStaxUnmarshaller<T> implements Unmarshaller<T, StaxUnmarshallerContext> {
-    public T unmarshall(StaxUnmarshallerContext context) throws Exception {
-        while (!context.nextEvent().isEndDocument()) {
-        }
-        return null;
-    }
+public interface XmlMarshaller<T> {
+
+    XmlMarshaller<Void> NULL = (val, context, paramName, sdkField) -> {
+    };
+
+    void marshall(T val, XmlMarshallerContext context, String paramName, SdkField<T> sdkField);
 }
