@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package software.amazon.awssdk.regions.internal.model;
+package software.amazon.awssdk.codegen.lite.regions.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import software.amazon.awssdk.annotations.SdkInternalApi;

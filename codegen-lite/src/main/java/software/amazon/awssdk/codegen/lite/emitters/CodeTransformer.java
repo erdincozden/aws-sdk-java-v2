@@ -13,12 +13,16 @@
  * permissions and limitations under the License.
  */
 
-package software.amazon.awssdk.regions.internal;
+package software.amazon.awssdk.codegen.lite.emitters;
 
-import software.amazon.awssdk.annotations.SdkInternalApi;
-import software.amazon.awssdk.regions.ServiceMetadata;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
-@SdkInternalApi
-public interface ServiceMetadataProvider {
-    ServiceMetadata getServiceMetadata(String service);
+public interface CodeTransformer extends Function<String, String> {
+    static CodeTransformer chain(CodeTransformer... processors) {
+        return input -> Stream.of(processors).map(p -> (Function<String, String>) p)
+                              .reduce(Function.identity(), Function::andThen).apply(input);
+    }
+
+    String apply(String input);
 }

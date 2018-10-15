@@ -13,18 +13,21 @@
  * permissions and limitations under the License.
  */
 
-package software.amazon.awssdk.regions.internal.model;
+package software.amazon.awssdk.codegen.lite.regions.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import software.amazon.awssdk.annotations.SdkInternalApi;
-import software.amazon.awssdk.core.Protocol;
 
 /**
  * Endpoint configuration.
  */
 @SdkInternalApi
 public final class Endpoint implements Cloneable {
+
+    private static final String HTTP = "http";
+
+    private static final String HTTPS = "https";
 
     /**
      * endpoint string.
@@ -165,7 +168,7 @@ public final class Endpoint implements Cloneable {
      * scheme. Returns false otherwise.
      */
     public boolean hasHttpsSupport() {
-        return isProtocolSupported(Protocol.HTTPS);
+        return isProtocolSupported(HTTPS);
     }
 
     /**
@@ -173,11 +176,11 @@ public final class Endpoint implements Cloneable {
      * scheme. Returns false otherwise.
      */
     public boolean hasHttpSupport() {
-        return isProtocolSupported(Protocol.HTTP);
+        return isProtocolSupported(HTTP);
     }
 
-    private boolean isProtocolSupported(Protocol protocol) {
-        return protocols != null && protocols.contains(protocol.toString());
+    private boolean isProtocolSupported(String protocol) {
+        return protocols != null && protocols.contains(protocol);
     }
 
     @Override

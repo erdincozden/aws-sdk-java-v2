@@ -13,22 +13,17 @@
  * permissions and limitations under the License.
  */
 
-package software.amazon.awssdk.regions.internal;
+package software.amazon.awssdk.codegen.lite;
 
-import software.amazon.awssdk.annotations.SdkInternalApi;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.regions.RegionMetadata;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.TypeSpec;
 
-@SdkInternalApi
-public interface RegionMetadataProvider {
+public interface PoetClass {
 
     /**
-     * Returns the region with the name given, if it exists in the metadata
-     * or if it can be derived from the metadata.
-     * Otherwise, returns null.
-     *
-     * @param region the region to search for
-     * @return the corresponding region, if it exists or derived.
+     * @return The actual class specification generated from a <code>PoetSpec.builder()...</code> implementation
      */
-    RegionMetadata getRegionMetadata(Region region);
+    TypeSpec poetClass();
+
+    ClassName className();
 }

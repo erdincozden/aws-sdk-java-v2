@@ -16,7 +16,7 @@
 package software.amazon.awssdk.regions;
 
 import software.amazon.awssdk.annotations.SdkPublicApi;
-import software.amazon.awssdk.regions.internal.RegionMetadataLoader;
+import software.amazon.awssdk.regions.regionmetadata.RegionMetadataProvider;
 
 /**
  * A collection of metadata about a region. This can be loaded using the {@link #of(Region)} method.
@@ -52,6 +52,6 @@ public interface RegionMetadata {
      * @return The metadata for that region.
      */
     static RegionMetadata of(Region region) {
-        return RegionMetadataLoader.getRegionMetadata(region);
+        return RegionMetadataProvider.regionMetadata(region);
     }
 }
