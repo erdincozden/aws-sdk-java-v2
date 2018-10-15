@@ -18,7 +18,6 @@ package software.amazon.awssdk.regions;
 import java.net.URI;
 import java.util.List;
 import software.amazon.awssdk.annotations.SdkPublicApi;
-import software.amazon.awssdk.regions.servicemetadata.ServiceMetadataProvider;
 
 /**
  * Metadata about a service, like S3, DynamoDB, etc.

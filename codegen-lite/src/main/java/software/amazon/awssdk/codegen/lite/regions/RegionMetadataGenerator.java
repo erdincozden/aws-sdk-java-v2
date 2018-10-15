@@ -93,6 +93,10 @@ public class RegionMetadataGenerator implements PoetClass {
     }
 
     private MethodSpec getter(String field) {
-        return MethodSpec.methodBuilder(field).addModifiers(Modifier.PUBLIC).returns(String.class).addStatement("return $L", field.toUpperCase(Locale.US)).build();
+        return MethodSpec.methodBuilder(field)
+                         .addModifiers(Modifier.PUBLIC)
+                         .returns(String.class)
+                         .addStatement("return $L", field.toUpperCase(Locale.US))
+                         .build();
     }
 }

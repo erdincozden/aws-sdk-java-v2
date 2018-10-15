@@ -18,11 +18,8 @@ package software.amazon.awssdk.codegen.lite.regions;
 import com.fasterxml.jackson.jr.ob.JSON;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
 import software.amazon.awssdk.annotations.SdkInternalApi;
 import software.amazon.awssdk.codegen.lite.regions.model.Partitions;
-import software.amazon.awssdk.utils.IoUtils;
 
 /**
  * Loads all the partition files into memory.

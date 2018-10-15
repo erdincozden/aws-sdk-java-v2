@@ -12,6 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
 package software.amazon.awssdk.codegen.lite.regions;
 
 import static java.util.AbstractMap.SimpleEntry;
@@ -103,7 +104,7 @@ public class ServiceMetadataGenerator implements PoetClass {
         String sanitizedServiceName = service.replace(".", "-");
         return ClassName.get(basePackage, Stream.of(sanitizedServiceName.split("-"))
                                                 .map(Utils::capitalize)
-                                                .collect(Collectors.joining()));
+                                                .collect(Collectors.joining()) + "ServiceMetadata");
     }
 
     private CodeBlock serviceEndpoints(Partitions partitions) {

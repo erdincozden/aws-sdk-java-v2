@@ -12,6 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
 package software.amazon.awssdk.codegen.lite.regions;
 
 import static java.util.AbstractMap.SimpleEntry;
@@ -31,6 +32,7 @@ import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -76,7 +78,7 @@ public class RegionMetadataProviderGenerator implements PoetClass {
 
     @Override
     public ClassName className() {
-        return ClassName.get(basePackage, "RegionMetadataProvider");
+        return ClassName.get(regionBasePackage, "RegionMetadataProvider");
     }
 
     private CodeBlock regions(Partitions partitions) {
@@ -102,7 +104,7 @@ public class RegionMetadataProviderGenerator implements PoetClass {
     }
 
     private String regionClass(String region) {
-        return region.replace("-", "_").toUpperCase();
+        return region.replace("-", "_").toUpperCase(Locale.US);
     }
 
     private ClassName regionMetadataClass(String region) {

@@ -25,7 +25,7 @@ import java.time.ZonedDateTime;
 import software.amazon.awssdk.codegen.lite.emitters.CodeWriter;
 import software.amazon.awssdk.utils.IoUtils;
 
-public class CodeGenerator {
+public final class CodeGenerator {
 
     private final Writer writer;
     private final PoetClass poetClass;
@@ -37,7 +37,7 @@ public class CodeGenerator {
 
     public void generate() {
         try {
-            writer.write("" + "\n");
+            writer.write(loadDefaultFileHeader() + "\n");
             JavaFile.builder(poetClass.className().packageName(), poetClass.poetClass())
                     .skipJavaLangImports(true)
                     .build()
@@ -50,17 +50,17 @@ public class CodeGenerator {
         }
     }
 
-//    private String loadDefaultFileHeader() throws IOException {
-//        try (InputStream inputStream = getClass()
-//            .getResourceAsStream("/software/amazon/awssdk/codegen/DefaultFileHeader.txt")) {
-//            return IoUtils.toUtf8String(inputStream)
-//                          .replaceFirst("%COPYRIGHT_DATE_RANGE%", getCopyrightDateRange());
-//        }
-//    }
-//
-//    private String getCopyrightDateRange() {
-//        final int currentYear = ZonedDateTime.now().getYear();
-//        final int copyrightStartYear = currentYear - 5;
-//        return String.format("%d-%d", copyrightStartYear, currentYear);
-//    }
+    private String loadDefaultFileHeader() throws IOException {
+        try (InputStream inputStream = getClass()
+            .getResourceAsStream("/software/amazon/awssdk/codegen/lite/DefaultFileHeader.txt")) {
+            return IoUtils.toUtf8String(inputStream)
+                          .replaceFirst("%COPYRIGHT_DATE_RANGE%", getCopyrightDateRange());
+        }
+    }
+
+    private String getCopyrightDateRange() {
+        final int currentYear = ZonedDateTime.now().getYear();
+        final int copyrightStartYear = currentYear - 5;
+        return String.format("%d-%d", copyrightStartYear, currentYear);
+    }
 }
