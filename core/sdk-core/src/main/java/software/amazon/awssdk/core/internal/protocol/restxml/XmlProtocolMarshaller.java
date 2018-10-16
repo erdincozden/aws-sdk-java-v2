@@ -71,6 +71,9 @@ public class XmlProtocolMarshaller<OrigRequestT extends SdkRequest> implements P
     }
 
     public void doMarshall(SdkPojo pojo) {
+
+        //marshallerContext.xmlGenerator().startElement();
+
         for (SdkField<?> field : pojo.sdkFields()) {
             Object val = resolveValue(field.get(pojo), field);
 
@@ -92,6 +95,8 @@ public class XmlProtocolMarshaller<OrigRequestT extends SdkRequest> implements P
                                    .marshall(val, marshallerContext, field.locationName(), (SdkField<Object>) field);
             }
         }
+
+       // marshallerContext.xmlGenerator().endElement();
     }
 
     private Request<OrigRequestT> finishMarshalling() {

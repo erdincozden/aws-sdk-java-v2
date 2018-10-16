@@ -163,7 +163,7 @@ public class XmlPayloadMarshaller {
                 .getOptionalTrait(ListTrait.class)
                 .orElseThrow(() -> new IllegalStateException("SdkField of list type is missing List trait"));
 
-            if (!listTrait.flattened()) {
+            if (!listTrait.isFlattened()) {
                 context.xmlGenerator().startElement(paramName);
             }
 
@@ -175,7 +175,7 @@ public class XmlPayloadMarshaller {
                 context.marshall(memberLocationTrait.location(), listMember, memberLocationName, memberField);
             }
 
-            if (!listTrait.flattened()) {
+            if (!listTrait.isFlattened()) {
                 context.xmlGenerator().endElement();
             }
         }
@@ -184,7 +184,7 @@ public class XmlPayloadMarshaller {
             String locationName = listTrait.memberLocationName();
 
             if (locationName == null) {
-                locationName = listTrait.flattened() ? listLocationName : "member";
+                locationName = listTrait.isFlattened() ? listLocationName : "member";
             }
 
             return locationName;

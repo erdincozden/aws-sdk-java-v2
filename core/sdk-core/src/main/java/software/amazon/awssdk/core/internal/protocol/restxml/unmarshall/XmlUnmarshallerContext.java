@@ -25,7 +25,7 @@ import software.amazon.awssdk.http.SdkHttpFullResponse;
 public class XmlUnmarshallerContext {
     private final SdkHttpFullResponse response;
     private final UnmarshallerRegistry unmarshallerRegistry;
-    private final XmlPayloadUnmarshallerContext payloadUnmarshallerContext;
+    private final StaxUnmarshallerContext payloadUnmarshallerContext;
 
     private XmlUnmarshallerContext(Builder builder) {
         this.response = builder.response;
@@ -57,7 +57,7 @@ public class XmlUnmarshallerContext {
         return unmarshaller;
     }
 
-    public XmlPayloadUnmarshallerContext payloadUnmarshallerContext() {
+    public StaxUnmarshallerContext payloadUnmarshallerContext() {
         return payloadUnmarshallerContext;
     }
 
@@ -75,7 +75,7 @@ public class XmlUnmarshallerContext {
 
         private SdkHttpFullResponse response;
         private UnmarshallerRegistry unmarshallerRegistry;
-        private XmlPayloadUnmarshallerContext payloadUnmarshallerContext;
+        private StaxUnmarshallerContext payloadUnmarshallerContext;
 
         private Builder() {
         }
@@ -91,7 +91,7 @@ public class XmlUnmarshallerContext {
         }
 
 
-        public Builder xmlPayloadUnmarshallerContext(XmlPayloadUnmarshallerContext payloadUnmarshallerContext) {
+        public Builder xmlPayloadUnmarshallerContext(StaxUnmarshallerContext payloadUnmarshallerContext) {
             this.payloadUnmarshallerContext = payloadUnmarshallerContext;
             return this;
         }

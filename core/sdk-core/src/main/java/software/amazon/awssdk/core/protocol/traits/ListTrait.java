@@ -26,12 +26,12 @@ public final class ListTrait implements Trait {
 
     private final String memberLocationName;
     private final SdkField memberFieldInfo;
-    private final boolean flattened;
+    private final boolean isFlattened;
 
     private ListTrait(Builder builder) {
         this.memberLocationName = builder.memberLocationName;
         this.memberFieldInfo = builder.memberFieldInfo;
-        this.flattened = builder.flattened;
+        this.isFlattened = builder.isFlattened;
     }
 
     /**
@@ -51,8 +51,11 @@ public final class ListTrait implements Trait {
         return memberFieldInfo;
     }
 
-    public boolean flattened() {
-        return flattened;
+    /**
+     * @return Whether the list should be marshalled/unmarshalled as a 'flattened' list. This only applies to Query/XML protocols.
+     */
+    public boolean isFlattened() {
+        return isFlattened;
     }
 
     public static Builder builder() {
@@ -63,7 +66,7 @@ public final class ListTrait implements Trait {
 
         private String memberLocationName;
         private SdkField memberFieldInfo;
-        private boolean flattened;
+        private boolean isFlattened;
 
         private Builder() {
         }
@@ -78,8 +81,8 @@ public final class ListTrait implements Trait {
             return this;
         }
 
-        public Builder flattened(boolean flattened) {
-            this.flattened = flattened;
+        public Builder isFlattened(boolean isFlattened) {
+            this.isFlattened = isFlattened;
             return this;
         }
 

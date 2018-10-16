@@ -17,6 +17,7 @@ package software.amazon.awssdk.services.s3.handlers;
 
 import static software.amazon.awssdk.http.Header.CONTENT_MD5;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import software.amazon.awssdk.annotations.SdkProtectedApi;
@@ -24,18 +25,22 @@ import software.amazon.awssdk.core.interceptor.Context;
 import software.amazon.awssdk.core.interceptor.ExecutionAttributes;
 import software.amazon.awssdk.core.interceptor.ExecutionInterceptor;
 import software.amazon.awssdk.http.SdkHttpFullRequest;
+import software.amazon.awssdk.utils.IoUtils;
 import software.amazon.awssdk.utils.Md5Utils;
 
 @SdkProtectedApi
 public class AddContentMd5HeaderInterceptor implements ExecutionInterceptor {
 
+    // FixMe Computing md5 is reading the content and no content is sent to service
     @Override
     public SdkHttpFullRequest modifyHttpRequest(Context.ModifyHttpRequest context, ExecutionAttributes executionAttributes) {
         SdkHttpFullRequest request = context.httpRequest();
         if (request.content().isPresent() && !request.firstMatchingHeader(CONTENT_MD5).isPresent()) {
             try {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                IoUtils.copy(request.content().get(), baos);
                 return request.toBuilder()
-                              .putHeader(CONTENT_MD5, Md5Utils.md5AsBase64(request.content().get()))
+                              .putHeader(CONTENT_MD5, Md5Utils.md5AsBase64(baos.toByteArray()))
                               .build();
             } catch (IOException e) {
                 throw new UncheckedIOException(e);

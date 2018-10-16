@@ -37,7 +37,7 @@ import software.amazon.awssdk.annotations.SdkProtectedApi;
  * from the parser, reading element text, handling attribute XML events, etc.
  */
 @SdkProtectedApi
-public final class StaxUnmarshallerContext implements XmlPayloadUnmarshallerContext {
+public final class StaxUnmarshallerContext {
 
     public final Stack<String> stack = new Stack<>();
     private final XMLEventReader eventReader;
@@ -146,6 +146,10 @@ public final class StaxUnmarshallerContext implements XmlPayloadUnmarshallerCont
         return stack.size();
     }
 
+    public String elementAtTopOfStack() {
+        return stack.peek();
+    }
+
     /**
      * Tests the specified expression against the current position in the XML
      * document being parsed.
@@ -206,6 +210,22 @@ public final class StaxUnmarshallerContext implements XmlPayloadUnmarshallerCont
         return eventReader.peek().isStartDocument();
     }
 
+    public boolean isStartOfDocumentNoException() {
+        try {
+            return eventReader.peek().isStartDocument();
+        } catch (XMLStreamException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public XMLEvent nextEventUncheckedException() {
+        try {
+            return nextEvent();
+        } catch (XMLStreamException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Returns the next XML event for the document being parsed.
      *
@@ -238,6 +258,18 @@ public final class StaxUnmarshallerContext implements XmlPayloadUnmarshallerCont
 
         return currentEvent;
     }
+
+
+//    public XMLEvent peekNextElement() {
+//        if (eventReader.hasNext())
+//            try {
+//                return eventReader.peek();
+//            } catch (XMLStreamException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//        return null;
+//    }
 
     /**
      * Returns any metadata collected through metadata expressions while this

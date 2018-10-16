@@ -118,6 +118,7 @@ public class XmlMarshallerSpec implements MarshallerProtocolSpec {
         return fields;
     }
 
+    // TODO Not generating xmlnamespace for RestXmlTypes shape
     private String xmlNameSpaceUri() {
         Set<String> xmlUris = shapeModel.getMembers().stream()
                                         .filter(m -> m.getXmlNameSpaceUri() != null)

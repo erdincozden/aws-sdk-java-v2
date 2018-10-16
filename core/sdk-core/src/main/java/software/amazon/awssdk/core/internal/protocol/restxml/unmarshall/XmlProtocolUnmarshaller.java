@@ -16,8 +16,8 @@
 package software.amazon.awssdk.core.internal.protocol.restxml.unmarshall;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
-import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.XMLEvent;
 import software.amazon.awssdk.annotations.SdkInternalApi;
 import software.amazon.awssdk.core.protocol.MarshallLocation;
@@ -46,7 +46,7 @@ public final class XmlProtocolUnmarshaller<T extends SdkPojo> {
 
 
     public T unmarshall(SdkPojo sdkPojo,
-                        XmlUnmarshallerContext context) throws Exception {
+                        XmlUnmarshallerContext context) {
 
         // set status code field
         sdkPojo.sdkFields().stream().filter(f -> f.location() == MarshallLocation.STATUS_CODE)
@@ -70,25 +70,50 @@ public final class XmlProtocolUnmarshaller<T extends SdkPojo> {
         return ((SdkBuilder<?, T>) sdkPojo).build();
     }
 
-    private void unmarshallPayload(SdkPojo sdkPojo, XmlUnmarshallerContext context, List<SdkField<?>> payloadFields)
-        throws XMLStreamException {
-        StaxUnmarshallerContext staxContext = (StaxUnmarshallerContext) context.payloadUnmarshallerContext();
+    private void unmarshallPayload(SdkPojo sdkPojo, XmlUnmarshallerContext unmarshallerContext,
+                                   List<SdkField<?>> payloadFields) {
+
+        if (payloadFields.isEmpty())
+            return;
+
+        StaxUnmarshallerContext context = unmarshallerContext.payloadUnmarshallerContext();
+
+        int originalDepth = context.getCurrentDepth();
+        int targetDepth = originalDepth + 1;
+
+        if (context.isStartOfDocumentNoException())
+            targetDepth += 1;
 
         while (true) {
-            XMLEvent xmlEvent = staxContext.nextEvent();
-
+            XMLEvent xmlEvent = context.nextEventUncheckedException();
             if (xmlEvent.isEndDocument()) {
                 break;
             }
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
+                String locationName = context.elementAtTopOfStack();
+                SdkField<?> currentField = getFieldFromLocation(payloadFields, locationName);
 
+                if (currentField != null && context.testExpression(locationName, targetDepth)) {
+                    XmlUnmarshaller unmarshaller = unmarshallerContext.getUnmarshaller(currentField.location(),
+                                                                                       currentField.marshallingType());
+                    currentField.set(sdkPojo, unmarshaller.unmarshall(unmarshallerContext, currentField));
+                    continue;
+                }
+            } else if (xmlEvent.isEndElement()) {
+                if (context.getCurrentDepth() < originalDepth) {
+                    break;
+                }
             }
-
         }
-
     }
 
+    private static SdkField<?> getFieldFromLocation(List<SdkField<?>> payloadFields, String locationName) {
+        return payloadFields.stream()
+                           .filter(f -> f.locationName().equals(locationName))
+                           .findAny()
+                            .orElse(null);
+    }
 
     private static UnmarshallerRegistry createUnmarshallerRegistry() {
         return UnmarshallerRegistry
@@ -103,20 +128,19 @@ public final class XmlProtocolUnmarshaller<T extends SdkPojo> {
             .headerUnmarshaller(MarshallingType.FLOAT, HeaderUnmarshaller.FLOAT)
             .headerUnmarshaller(MarshallingType.MAP, HeaderUnmarshaller.MAP)
 
-
-
-//            .payloadUnmarshaller(MarshallingType.STRING, new SimpleTypeJsonUnmarshaller<>(StringToValueConverter.TO_STRING))
-//            .payloadUnmarshaller(MarshallingType.INTEGER, new SimpleTypeJsonUnmarshaller<>(StringToValueConverter.TO_INTEGER))
-//            .payloadUnmarshaller(MarshallingType.LONG, new SimpleTypeJsonUnmarshaller<>(StringToValueConverter.TO_LONG))
-//            .payloadUnmarshaller(MarshallingType.DOUBLE, new SimpleTypeJsonUnmarshaller<>(StringToValueConverter.TO_DOUBLE))
-//            .payloadUnmarshaller(MarshallingType.BIG_DECIMAL, new SimpleTypeJsonUnmarshaller<>(StringToValueConverter.TO_BIG_DECIMAL))
-//            .payloadUnmarshaller(MarshallingType.BOOLEAN, new SimpleTypeJsonUnmarshaller<>(StringToValueConverter.TO_BOOLEAN))
-//            .payloadUnmarshaller(MarshallingType.FLOAT, new SimpleTypeJsonUnmarshaller<>(StringToValueConverter.TO_FLOAT))
-//            .payloadUnmarshaller(MarshallingType.SDK_BYTES, new SimpleTypeJsonUnmarshaller<>(StringToValueConverter.TO_SDK_BYTES))
-//            .payloadUnmarshaller(MarshallingType.INSTANT, new SimpleTypeJsonUnmarshaller<>(StringToValueConverter.TO_INSTANT))
-//            .payloadUnmarshaller(MarshallingType.SDK_POJO, JsonProtocolUnmarshaller::unmarshallStructured)
-//            .payloadUnmarshaller(MarshallingType.LIST, JsonProtocolUnmarshaller::unmarshallList)
-//            .payloadUnmarshaller(MarshallingType.MAP, JsonProtocolUnmarshaller::unmarshallMap)
+            .payloadUnmarshaller(MarshallingType.STRING, XmlPayloadUnmarshaller.STRING)
+            .payloadUnmarshaller(MarshallingType.INTEGER, XmlPayloadUnmarshaller.INTEGER)
+            .payloadUnmarshaller(MarshallingType.LONG, XmlPayloadUnmarshaller.LONG)
+            .payloadUnmarshaller(MarshallingType.FLOAT, XmlPayloadUnmarshaller.FLOAT)
+            .payloadUnmarshaller(MarshallingType.DOUBLE,XmlPayloadUnmarshaller.DOUBLE)
+            .payloadUnmarshaller(MarshallingType.BIG_DECIMAL, XmlPayloadUnmarshaller.BIG_DECIMAL)
+            .payloadUnmarshaller(MarshallingType.BOOLEAN, XmlPayloadUnmarshaller.BOOLEAN)
+            .payloadUnmarshaller(MarshallingType.INSTANT, XmlPayloadUnmarshaller.INSTANT)
+            .payloadUnmarshaller(MarshallingType.SDK_BYTES, XmlPayloadUnmarshaller.SDK_BYTES)
+            //.payloadUnmarshaller(MarshallingType.SDK_POJO, XmlPayloadUnmarshaller.SDK_POJO)
+            .payloadUnmarshaller(MarshallingType.SDK_POJO, XmlPayloadUnmarshaller::unmarshallSdkPojo)
+            .payloadUnmarshaller(MarshallingType.LIST, XmlPayloadUnmarshaller::unmarshallList)
+            .payloadUnmarshaller(MarshallingType.MAP, XmlPayloadUnmarshaller::unmarshallMap)
             .build();
     }
 
