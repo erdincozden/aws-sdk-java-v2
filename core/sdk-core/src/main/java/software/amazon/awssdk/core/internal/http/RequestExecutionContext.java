@@ -117,6 +117,7 @@ public final class RequestExecutionContext {
     public void apiCallAttemptTimeoutTracker(TimeoutTracker timeoutTracker) {
         this.apiCallAttemptTimeoutTracker = timeoutTracker;
     }
+
     public void requestProvider(SdkHttpContentPublisher publisher) {
         requestProvider = publisher;
     }

@@ -65,7 +65,7 @@ public abstract class BaseAsyncAws4Signer extends BaseAws4Signer implements Asyn
     protected final SdkHttpContentPublisher signAsync(SdkHttpFullRequest request, SdkHttpContentPublisher requestPublisher,
                                                 Aws4SignerRequestParams requestParams, Aws4SignerParams signingParams) {
         AwsCredentials sanitizedCredentials = sanitizeCredentials(signingParams.awsCredentials());
-        final byte[] signingKey = deriveSigningKey(sanitizedCredentials, requestParams);
+        byte[] signingKey = deriveSigningKey(sanitizedCredentials, requestParams);
 
         String headerSignature = getHeaderSignature(request);
         RequestProviderTransformer transformer = createRequestProviderTransformer(headerSignature, signingKey,
