@@ -56,10 +56,7 @@ public class PartitionServiceMetadataTest {
 
     @Test
     public void endpointFor_ReturnsEndpoint_ForAllRegionalizedServices_When_AwsPartition() {
-        AWS_PARTITION_REGIONALIZED_SERVICES.forEach(s -> {
-            System.out.println(s);
-            ServiceMetadata.of(s).endpointFor(Region.US_EAST_1);
-        });
+        AWS_PARTITION_REGIONALIZED_SERVICES.forEach(s -> ServiceMetadata.of(s).endpointFor(Region.US_EAST_1));
     }
 
     @Test
