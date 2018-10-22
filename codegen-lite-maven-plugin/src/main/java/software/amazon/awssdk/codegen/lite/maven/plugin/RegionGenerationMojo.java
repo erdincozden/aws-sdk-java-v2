@@ -56,6 +56,7 @@ public class RegionGenerationMojo extends AbstractMojo {
 
     public void execute() throws MojoExecutionException {
         Path baseSourcesDirectory = Paths.get(outputDirectory).resolve("generated-sources").resolve("sdk");
+        Path testsDirectory = Paths.get(outputDirectory).resolve("generated-test-sources").resolve("sdk-tests");
 
         Partitions partitions = RegionMetadataLoader.build(endpoints);
 
@@ -66,6 +67,7 @@ public class RegionGenerationMojo extends AbstractMojo {
         generateServiceProvider(baseSourcesDirectory, partitions);
 
         project.addCompileSourceRoot(baseSourcesDirectory.toFile().getAbsolutePath());
+        project.addTestCompileSourceRoot(testsDirectory.toFile().getAbsolutePath());
     }
 
     public void generateRegionClass(Path baseSourcesDirectory, Partitions partitions) {

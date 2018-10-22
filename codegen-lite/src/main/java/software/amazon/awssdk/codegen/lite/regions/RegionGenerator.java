@@ -56,6 +56,7 @@ public class RegionGenerator implements PoetClass {
     public TypeSpec poetClass() {
         TypeSpec.Builder builder = TypeSpec.classBuilder(className())
                                            .addModifiers(FINAL, PUBLIC)
+                                           .addJavadoc(documentation())
                                            .addAnnotation(SdkPublicApi.class)
                                            .addAnnotation(AnnotationSpec.builder(Generated.class)
                                                                         .addMember("value",
@@ -213,6 +214,30 @@ public class RegionGenerator implements PoetClass {
                                                           className())
                                             .build())
                        .build();
+    }
+
+    private CodeBlock documentation() {
+        return CodeBlock.builder()
+                        .add("An Amazon Web Services region that hosts a set of Amazon services.")
+                        .add(System.lineSeparator())
+                        .add("<p>An instance of this class can be retrieved by referencing one of the static constants defined in"
+                             + " this class (eg. {@link Region#US_EAST_1}) or by using the {@link Region#of(String)} method if "
+                             + "the region you want is not included in this release of the SDK.</p>")
+                        .add(System.lineSeparator())
+                        .add("<p>Each AWS region corresponds to a separate geographical location where a set of Amazon services "
+                             + "is deployed. These regions (except for the special {@link #AWS_GLOBAL} and {@link #AWS_CN_GLOBAL}"
+                             + " regions) are separate from each other, with their own set of resources. This means a resource "
+                             + "created in one region (eg. an SQS queue) is not available in another region.</p>")
+                        .add(System.lineSeparator())
+                        .add("<p>To programmatically determine whether a particular service is deployed to a region, you can use "
+                             + "the {@code serviceMetadata} method on the service's client interface. Additional metadata about "
+                             + "a region can be discovered using {@link RegionMetadata#of(Region)}.</p>")
+                        .add(System.lineSeparator())
+                        .add("<p>The {@link Region#id()} will be used as the signing region for all requests to AWS services "
+                             + "unless an explicit region override is available in {@link RegionMetadata}. This id will also be "
+                             + "used to construct the endpoint for accessing a service unless an explicit endpoint is available "
+                             + "for that region in {@link RegionMetadata}.</p>")
+                        .build();
     }
 
     @Override

@@ -51,6 +51,6 @@ public interface RegionMetadata {
      * @return The metadata for that region.
      */
     static RegionMetadata of(Region region) {
-        return RegionMetadataProvider.regionMetadata(region);
+        return MetadataLoader.regionMetadata(region);
     }
 }

@@ -1,23 +1,6 @@
-/*
- * Copyright 2013-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
- * the License. A copy of the License is located at
- *
- * http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
- * and limitations under the License.
- */
-
 package software.amazon.awssdk.regions;
 
-import java.util.AbstractMap;
-import java.util.Collections;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import software.amazon.awssdk.annotations.Generated;
 import software.amazon.awssdk.annotations.SdkPublicApi;
 import software.amazon.awssdk.regions.servicemetadata.A4bServiceMetadata;
@@ -147,226 +130,81 @@ import software.amazon.awssdk.regions.servicemetadata.WorkdocsServiceMetadata;
 import software.amazon.awssdk.regions.servicemetadata.WorkmailServiceMetadata;
 import software.amazon.awssdk.regions.servicemetadata.WorkspacesServiceMetadata;
 import software.amazon.awssdk.regions.servicemetadata.XrayServiceMetadata;
+import software.amazon.awssdk.utils.ImmutableMap;
 
 @Generated("software.amazon.awssdk:codegen")
 @SdkPublicApi
-public final class ServiceMetadataProvider {
-    private static final Map<String, ServiceMetadata> SERVICE_METADATA = Collections.unmodifiableMap(Stream.of(
-            new AbstractMap.SimpleEntry<>("a4b", new A4bServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("acm", new AcmServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("acm-pca", new AcmPcaServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("api.mediatailor", new ApiMediatailorServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("api.pricing", new ApiPricingServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("apigateway", new ApigatewayServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("application-autoscaling", new ApplicationAutoscalingServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("appstream2", new Appstream2ServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("athena", new AthenaServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("autoscaling", new AutoscalingServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("autoscaling-plans", new AutoscalingPlansServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("batch", new BatchServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("budgets", new BudgetsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ce", new CeServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloud9", new Cloud9ServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("clouddirectory", new ClouddirectoryServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloudformation", new CloudformationServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloudfront", new CloudfrontServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloudhsm", new CloudhsmServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloudhsmv2", new Cloudhsmv2ServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloudsearch", new CloudsearchServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloudtrail", new CloudtrailServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("codebuild", new CodebuildServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("codecommit", new CodecommitServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("codedeploy", new CodedeployServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("codepipeline", new CodepipelineServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("codestar", new CodestarServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cognito-identity", new CognitoIdentityServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cognito-idp", new CognitoIdpServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cognito-sync", new CognitoSyncServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("comprehend", new ComprehendServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("config", new ConfigServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cur", new CurServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("data.iot", new DataIotServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("datapipeline", new DatapipelineServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("dax", new DaxServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("devicefarm", new DevicefarmServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("directconnect", new DirectconnectServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("discovery", new DiscoveryServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("dms", new DmsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ds", new DsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("dynamodb", new DynamodbServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ec2", new Ec2ServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ecr", new EcrServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ecs", new EcsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticache", new ElasticacheServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticbeanstalk", new ElasticbeanstalkServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticfilesystem", new ElasticfilesystemServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticloadbalancing", new ElasticloadbalancingServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticmapreduce", new ElasticmapreduceServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elastictranscoder", new ElastictranscoderServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("email", new EmailServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("entitlement.marketplace", new EntitlementMarketplaceServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("es", new EsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("events", new EventsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("firehose", new FirehoseServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("fms", new FmsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("gamelift", new GameliftServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("glacier", new GlacierServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("glue", new GlueServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("greengrass", new GreengrassServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("guardduty", new GuarddutyServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("health", new HealthServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("iam", new IamServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("importexport", new ImportexportServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("inspector", new InspectorServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("iot", new IotServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("kinesis", new KinesisServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("kinesisanalytics", new KinesisanalyticsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("kinesisvideo", new KinesisvideoServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("kms", new KmsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("lambda", new LambdaServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("lightsail", new LightsailServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("logs", new LogsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("machinelearning", new MachinelearningServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("marketplacecommerceanalytics", new MarketplacecommerceanalyticsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("mediaconvert", new MediaconvertServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("medialive", new MedialiveServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("mediapackage", new MediapackageServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("mediastore", new MediastoreServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("metering.marketplace", new MeteringMarketplaceServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("mgh", new MghServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("mobileanalytics", new MobileanalyticsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("models.lex", new ModelsLexServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("monitoring", new MonitoringServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("mturk-requester", new MturkRequesterServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("neptune", new NeptuneServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("opsworks", new OpsworksServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("opsworks-cm", new OpsworksCmServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("organizations", new OrganizationsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("pinpoint", new PinpointServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("polly", new PollyServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("rds", new RdsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("redshift", new RedshiftServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("rekognition", new RekognitionServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("resource-groups", new ResourceGroupsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("route53", new Route53ServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("route53domains", new Route53domainsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("runtime.lex", new RuntimeLexServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("runtime.sagemaker", new RuntimeSagemakerServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("s3", new S3ServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sagemaker", new SagemakerServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sdb", new SdbServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("secretsmanager", new SecretsmanagerServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("serverlessrepo", new ServerlessrepoServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("servicecatalog", new ServicecatalogServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("servicediscovery", new ServicediscoveryServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("shield", new ShieldServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sms", new SmsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("snowball", new SnowballServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sns", new SnsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sqs", new SqsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ssm", new SsmServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("states", new StatesServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("storagegateway", new StoragegatewayServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("streams.dynamodb", new StreamsDynamodbServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sts", new StsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("support", new SupportServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("swf", new SwfServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("tagging", new TaggingServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("translate", new TranslateServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("waf", new WafServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("waf-regional", new WafRegionalServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("workdocs", new WorkdocsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("workmail", new WorkmailServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("workspaces", new WorkspacesServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("xray", new XrayServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("apigateway", new ApigatewayServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("application-autoscaling", new ApplicationAutoscalingServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("autoscaling", new AutoscalingServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloudformation", new CloudformationServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloudtrail", new CloudtrailServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("codedeploy", new CodedeployServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cognito-identity", new CognitoIdentityServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("config", new ConfigServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("data.iot", new DataIotServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("directconnect", new DirectconnectServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("dynamodb", new DynamodbServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ec2", new Ec2ServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ecr", new EcrServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ecs", new EcsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticache", new ElasticacheServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticbeanstalk", new ElasticbeanstalkServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticloadbalancing", new ElasticloadbalancingServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticmapreduce", new ElasticmapreduceServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("es", new EsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("events", new EventsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("glacier", new GlacierServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("iam", new IamServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("iot", new IotServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("kinesis", new KinesisServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("lambda", new LambdaServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("logs", new LogsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("monitoring", new MonitoringServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("rds", new RdsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("redshift", new RedshiftServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("s3", new S3ServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sms", new SmsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("snowball", new SnowballServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sns", new SnsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sqs", new SqsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ssm", new SsmServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("storagegateway", new StoragegatewayServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("streams.dynamodb", new StreamsDynamodbServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sts", new StsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("swf", new SwfServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("tagging", new TaggingServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("acm", new AcmServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("apigateway", new ApigatewayServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("autoscaling", new AutoscalingServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloudformation", new CloudformationServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloudhsm", new CloudhsmServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloudhsmv2", new Cloudhsmv2ServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("cloudtrail", new CloudtrailServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("codedeploy", new CodedeployServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("config", new ConfigServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("directconnect", new DirectconnectServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("dms", new DmsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("dynamodb", new DynamodbServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ec2", new Ec2ServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ecr", new EcrServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ecs", new EcsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticache", new ElasticacheServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticbeanstalk", new ElasticbeanstalkServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticloadbalancing", new ElasticloadbalancingServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("elasticmapreduce", new ElasticmapreduceServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("es", new EsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("events", new EventsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("glacier", new GlacierServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("iam", new IamServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("inspector", new InspectorServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("kinesis", new KinesisServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("kms", new KmsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("lambda", new LambdaServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("logs", new LogsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("metering.marketplace", new MeteringMarketplaceServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("monitoring", new MonitoringServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("polly", new PollyServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("rds", new RdsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("redshift", new RedshiftServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("rekognition", new RekognitionServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("s3", new S3ServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sms", new SmsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("snowball", new SnowballServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sns", new SnsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sqs", new SqsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("ssm", new SsmServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("storagegateway", new StoragegatewayServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("streams.dynamodb", new StreamsDynamodbServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("sts", new StsServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("swf", new SwfServiceMetadata()),
-            new AbstractMap.SimpleEntry<>("tagging", new TaggingServiceMetadata())).collect(
-            Collectors.toMap((e) -> e.getKey(), (e) -> e.getValue())));
+public final class GeneratedServiceMetadataProvider implements ServiceMetadataProvider {
+    private static final Map<String, ServiceMetadata> SERVICE_METADATA = ImmutableMap.<String, ServiceMetadata> builder()
+            .put("a4b", new A4bServiceMetadata()).put("acm", new AcmServiceMetadata())
+            .put("acm-pca", new AcmPcaServiceMetadata()).put("api.mediatailor", new ApiMediatailorServiceMetadata())
+            .put("api.pricing", new ApiPricingServiceMetadata()).put("apigateway", new ApigatewayServiceMetadata())
+            .put("application-autoscaling", new ApplicationAutoscalingServiceMetadata())
+            .put("appstream2", new Appstream2ServiceMetadata()).put("athena", new AthenaServiceMetadata())
+            .put("autoscaling", new AutoscalingServiceMetadata()).put("autoscaling-plans", new AutoscalingPlansServiceMetadata())
+            .put("batch", new BatchServiceMetadata()).put("budgets", new BudgetsServiceMetadata())
+            .put("ce", new CeServiceMetadata()).put("cloud9", new Cloud9ServiceMetadata())
+            .put("clouddirectory", new ClouddirectoryServiceMetadata())
+            .put("cloudformation", new CloudformationServiceMetadata()).put("cloudfront", new CloudfrontServiceMetadata())
+            .put("cloudhsm", new CloudhsmServiceMetadata()).put("cloudhsmv2", new Cloudhsmv2ServiceMetadata())
+            .put("cloudsearch", new CloudsearchServiceMetadata()).put("cloudtrail", new CloudtrailServiceMetadata())
+            .put("codebuild", new CodebuildServiceMetadata()).put("codecommit", new CodecommitServiceMetadata())
+            .put("codedeploy", new CodedeployServiceMetadata()).put("codepipeline", new CodepipelineServiceMetadata())
+            .put("codestar", new CodestarServiceMetadata()).put("cognito-identity", new CognitoIdentityServiceMetadata())
+            .put("cognito-idp", new CognitoIdpServiceMetadata()).put("cognito-sync", new CognitoSyncServiceMetadata())
+            .put("comprehend", new ComprehendServiceMetadata()).put("config", new ConfigServiceMetadata())
+            .put("cur", new CurServiceMetadata()).put("data.iot", new DataIotServiceMetadata())
+            .put("datapipeline", new DatapipelineServiceMetadata()).put("dax", new DaxServiceMetadata())
+            .put("devicefarm", new DevicefarmServiceMetadata()).put("directconnect", new DirectconnectServiceMetadata())
+            .put("discovery", new DiscoveryServiceMetadata()).put("dms", new DmsServiceMetadata())
+            .put("ds", new DsServiceMetadata()).put("dynamodb", new DynamodbServiceMetadata())
+            .put("ec2", new Ec2ServiceMetadata()).put("ecr", new EcrServiceMetadata()).put("ecs", new EcsServiceMetadata())
+            .put("elasticache", new ElasticacheServiceMetadata()).put("elasticbeanstalk", new ElasticbeanstalkServiceMetadata())
+            .put("elasticfilesystem", new ElasticfilesystemServiceMetadata())
+            .put("elasticloadbalancing", new ElasticloadbalancingServiceMetadata())
+            .put("elasticmapreduce", new ElasticmapreduceServiceMetadata())
+            .put("elastictranscoder", new ElastictranscoderServiceMetadata()).put("email", new EmailServiceMetadata())
+            .put("entitlement.marketplace", new EntitlementMarketplaceServiceMetadata()).put("es", new EsServiceMetadata())
+            .put("events", new EventsServiceMetadata()).put("firehose", new FirehoseServiceMetadata())
+            .put("fms", new FmsServiceMetadata()).put("gamelift", new GameliftServiceMetadata())
+            .put("glacier", new GlacierServiceMetadata()).put("glue", new GlueServiceMetadata())
+            .put("greengrass", new GreengrassServiceMetadata()).put("guardduty", new GuarddutyServiceMetadata())
+            .put("health", new HealthServiceMetadata()).put("iam", new IamServiceMetadata())
+            .put("importexport", new ImportexportServiceMetadata()).put("inspector", new InspectorServiceMetadata())
+            .put("iot", new IotServiceMetadata()).put("kinesis", new KinesisServiceMetadata())
+            .put("kinesisanalytics", new KinesisanalyticsServiceMetadata())
+            .put("kinesisvideo", new KinesisvideoServiceMetadata()).put("kms", new KmsServiceMetadata())
+            .put("lambda", new LambdaServiceMetadata()).put("lightsail", new LightsailServiceMetadata())
+            .put("logs", new LogsServiceMetadata()).put("machinelearning", new MachinelearningServiceMetadata())
+            .put("marketplacecommerceanalytics", new MarketplacecommerceanalyticsServiceMetadata())
+            .put("mediaconvert", new MediaconvertServiceMetadata()).put("medialive", new MedialiveServiceMetadata())
+            .put("mediapackage", new MediapackageServiceMetadata()).put("mediastore", new MediastoreServiceMetadata())
+            .put("metering.marketplace", new MeteringMarketplaceServiceMetadata()).put("mgh", new MghServiceMetadata())
+            .put("mobileanalytics", new MobileanalyticsServiceMetadata()).put("models.lex", new ModelsLexServiceMetadata())
+            .put("monitoring", new MonitoringServiceMetadata()).put("mturk-requester", new MturkRequesterServiceMetadata())
+            .put("neptune", new NeptuneServiceMetadata()).put("opsworks", new OpsworksServiceMetadata())
+            .put("opsworks-cm", new OpsworksCmServiceMetadata()).put("organizations", new OrganizationsServiceMetadata())
+            .put("pinpoint", new PinpointServiceMetadata()).put("polly", new PollyServiceMetadata())
+            .put("rds", new RdsServiceMetadata()).put("redshift", new RedshiftServiceMetadata())
+            .put("rekognition", new RekognitionServiceMetadata()).put("resource-groups", new ResourceGroupsServiceMetadata())
+            .put("route53", new Route53ServiceMetadata()).put("route53domains", new Route53domainsServiceMetadata())
+            .put("runtime.lex", new RuntimeLexServiceMetadata()).put("runtime.sagemaker", new RuntimeSagemakerServiceMetadata())
+            .put("s3", new S3ServiceMetadata()).put("sagemaker", new SagemakerServiceMetadata())
+            .put("sdb", new SdbServiceMetadata()).put("secretsmanager", new SecretsmanagerServiceMetadata())
+            .put("serverlessrepo", new ServerlessrepoServiceMetadata())
+            .put("servicecatalog", new ServicecatalogServiceMetadata())
+            .put("servicediscovery", new ServicediscoveryServiceMetadata()).put("shield", new ShieldServiceMetadata())
+            .put("sms", new SmsServiceMetadata()).put("snowball", new SnowballServiceMetadata())
+            .put("sns", new SnsServiceMetadata()).put("sqs", new SqsServiceMetadata()).put("ssm", new SsmServiceMetadata())
+            .put("states", new StatesServiceMetadata()).put("storagegateway", new StoragegatewayServiceMetadata())
+            .put("streams.dynamodb", new StreamsDynamodbServiceMetadata()).put("sts", new StsServiceMetadata())
+            .put("support", new SupportServiceMetadata()).put("swf", new SwfServiceMetadata())
+            .put("tagging", new TaggingServiceMetadata()).put("translate", new TranslateServiceMetadata())
+            .put("waf", new WafServiceMetadata()).put("waf-regional", new WafRegionalServiceMetadata())
+            .put("workdocs", new WorkdocsServiceMetadata()).put("workmail", new WorkmailServiceMetadata())
+            .put("workspaces", new WorkspacesServiceMetadata()).put("xray", new XrayServiceMetadata()).build();
 
-    public static ServiceMetadata serviceMetadata(String endpointPrefix) {
+    public ServiceMetadata serviceMetadata(String endpointPrefix) {
         return SERVICE_METADATA.get(endpointPrefix);
     }
 }

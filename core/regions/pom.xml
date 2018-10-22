@@ -111,7 +111,7 @@
     </build>
 
     <profiles>
-        <!-- Build steps executed for services with models -->
+        <!-- Generate region and service metadata -->
         <profile>
             <id>generated-service</id>
             <activation>

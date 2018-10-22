@@ -15,7 +15,6 @@
 
 package software.amazon.awssdk.codegen.lite.regions;
 
-import static java.util.AbstractMap.SimpleEntry;
 import static javax.lang.model.element.Modifier.FINAL;
 import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.PUBLIC;
@@ -29,9 +28,6 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,6 +37,7 @@ import software.amazon.awssdk.annotations.SdkPublicApi;
 import software.amazon.awssdk.codegen.lite.PoetClass;
 import software.amazon.awssdk.codegen.lite.Utils;
 import software.amazon.awssdk.codegen.lite.regions.model.Partitions;
+import software.amazon.awssdk.utils.ImmutableMap;
 
 public class RegionMetadataProviderGenerator implements PoetClass {
 
@@ -63,6 +60,7 @@ public class RegionMetadataProviderGenerator implements PoetClass {
                                                                  ClassName.get(regionBasePackage, "RegionMetadata"));
         return TypeSpec.classBuilder(className())
                        .addModifiers(PUBLIC)
+                       .addSuperinterface(ClassName.get(regionBasePackage, "RegionMetadataProvider"))
                        .addAnnotation(AnnotationSpec.builder(Generated.class)
                                                     .addMember("value", "$S", "software.amazon.awssdk:codegen")
                                                     .build())
@@ -78,29 +76,19 @@ public class RegionMetadataProviderGenerator implements PoetClass {
 
     @Override
     public ClassName className() {
-        return ClassName.get(regionBasePackage, "RegionMetadataProvider");
+        return ClassName.get(regionBasePackage, "GeneratedRegionMetadataProvider");
     }
 
     private CodeBlock regions(Partitions partitions) {
-        CodeBlock.Builder builder = CodeBlock.builder().add("$T.unmodifiableMap($T.of(", Collections.class, Stream.class);
+        CodeBlock.Builder builder = CodeBlock.builder().add("$T.<Region, RegionMetadata>builder()", ImmutableMap.class);
 
-        List<String> regions = new ArrayList<>();
+        partitions.getPartitions()
+                  .stream()
+                  .forEach(p -> p.getRegions()
+                                 .keySet()
+                                 .forEach(r -> builder.add(".put(Region.$L, new $T())", regionClass(r), regionMetadataClass(r))));
 
-        partitions.getPartitions().stream().forEach(p -> regions.addAll(p.getRegions().keySet()));
-
-        for (int i = 0; i < regions.size() - 1; i++) {
-            builder.add("new $T<>(Region.$L, new $T()),",
-                        SimpleEntry.class,
-                        regionClass(regions.get(i)),
-                        regionMetadataClass(regions.get(i)));
-        }
-
-        builder.add("new $T<>(Region.$L, new $T())",
-                    SimpleEntry.class,
-                    regionClass(regions.get(regions.size() - 1)),
-                    regionMetadataClass(regions.get(regions.size() - 1)));
-
-        return builder.add(").collect($T.toMap((e) -> e.getKey(), (e) -> e.getValue())))", Collectors.class).build();
+        return builder.add(".build()").build();
     }
 
     private String regionClass(String region) {
@@ -113,7 +101,7 @@ public class RegionMetadataProviderGenerator implements PoetClass {
 
     private MethodSpec getter() {
         return MethodSpec.methodBuilder("regionMetadata")
-                         .addModifiers(PUBLIC, STATIC)
+                         .addModifiers(PUBLIC)
                          .addParameter(ClassName.get(regionBasePackage, "Region"), "region")
                          .returns(ClassName.get(regionBasePackage, "RegionMetadata"))
                          .addStatement("return $L.get($L)", "REGION_METADATA", "region")

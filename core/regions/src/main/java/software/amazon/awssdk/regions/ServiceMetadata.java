@@ -64,7 +64,7 @@ public interface ServiceMetadata {
      * @return The service metadata for the requested service.
      */
     static ServiceMetadata of(String serviceEndpointPrefix) {
-        return ServiceMetadataProvider.serviceMetadata(serviceEndpointPrefix);
+        return MetadataLoader.serviceMetadata(serviceEndpointPrefix);
     }
 
     default String computeEndpoint(String endpointPrefix, Region region) {
